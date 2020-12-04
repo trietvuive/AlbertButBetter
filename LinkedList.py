@@ -1,3 +1,4 @@
+#linkedlist used to efficiently represent each date
 class LinkedList:
     class Node:
         def __init__(self,start,end):

@@ -1,11 +1,12 @@
 from OneClass import *
 from LinkedList import *
+#object represents each day of the week
 class Day:
     def __init__(self):
         self.day_interval = LinkedList()
     def insert_interval(self,start,end):
         return self.day_interval.insert(start,end)
-    def insert_option(self,option):
+    def insert_class(self,option):
         return self.insert_interval(option.start,option.end)
     def is_overlap(self,option):
         return self.day_interval.is_overlap(option.start,option.end)
