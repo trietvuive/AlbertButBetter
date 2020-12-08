@@ -1,7 +1,8 @@
 #linkedlist used to efficiently represent each date
 class LinkedList:
     class Node:
-        def __init__(self,start,end):
+        def __init__(self,start,end,name = None):
+            self.name = name
             if end<=start:
                 raise Exception("You cannot end something before it starts")
             self.start = start
@@ -9,8 +10,8 @@ class LinkedList:
             self.next = None
     def __init__(self):
         self.head = None
-    def insert(self,start,end):
-        return self.insert_node(LinkedList.Node(start,end))
+    def insert(self,start,end,name):
+        return self.insert_node(LinkedList.Node(start,end,name))
     def insert_node(self,node):
         if self.overlap(node):
             return False
@@ -29,8 +30,10 @@ class LinkedList:
     def __iter__(self):
         curr = self.head
         while curr is not None:
-            yield (curr.start,curr.end)
+            yield (curr.start,curr.end,curr.name)
             curr = curr.next
+    def __str__(self):
+        return str.join(", ",[str(i[2])+ ": "+str(i[0])+"->"+str(i[1]) for i in self])
     def overlap(self,node):
         curr = self.head
         if self.head is None:
@@ -40,8 +43,8 @@ class LinkedList:
         if curr is None:
             return False
             #Can assume node.start > curr.prev.end
-            if curr.start <= node.start or curr.start < node.end:
-                return True
-            return False
+        if curr.start <= node.start or curr.start < node.end:
+            return True
+        return False
     def is_overlap(self,start,end):
         return self.overlap(LinkedList.Node(start,end))
