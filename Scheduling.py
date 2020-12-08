@@ -54,6 +54,8 @@ def main():
     sched.backtracking()
     i = 0
     n = len(sched.all_arrangements)
+    if n == 0:
+        print("Uh oh, your schedule seems impossible. Try adding more options or sth m8")
     while True:
         print(sched.all_arrangements[i])
         while True:
@@ -68,6 +70,4 @@ def main():
                     break
             if string.lower() == "x":
                 return
-
-
 main()

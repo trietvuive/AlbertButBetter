@@ -22,7 +22,7 @@ class LinkedList:
             self.head = node
         else:
             curr = self.head
-            while curr.next is not None and node.start < curr.next.end:
+            while curr.next is not None and node.start > curr.next.end:
                 curr = curr.next
             node.next = curr.next
             curr.next = node
