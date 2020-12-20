@@ -1,13 +1,11 @@
 import requests
 import json
 
-from datetime import date
-
 def get_data(url):
     response_obj = requests.get(url)
 
-    if response_obj.status_code == 404:
-        raise Exception("Resource cannot be found")
+    if response_obj.status_code == 400:
+        raise Exception("Path parameter(s) invalid")
 
     json_data = response_obj.json()
     return json_data
@@ -59,24 +57,27 @@ def get_courses(semester, school, subject, year = "current"):
     url = "https://schedge.a1liu.com/" + str(year) + "/" + semester + "/" + school + "/" + subject
     return get_data(url)
 
-def get_courses_by_school(semester, school, year = "current"):
+def get_courses_by_school(semester, school, year):
     school = school.upper()
     validate_sem_and_year(semester, year)
     validate_school(school)
 
-    if year == "current":
-        year = date.today().year
-
-    url = "https://schedge.a1liu.com/" + str(year) + "/fa/search?query='" + school + "'&limit=9999"
+    url = "https://schedge.a1liu.com/" + str(year) + "/" + semester + "/search?query='" + school + "'&limit=9999&full=true"
     return get_data(url)
 
-def get_courses_by_subject(semester, subject, year = "current"):
+def get_courses_by_subject(semester, subject, year):
     subject = subject.upper()
     validate_sem_and_year(semester, year)
     validate_subject(subject)
 
-    if year == "current":
-        year = date.today().year
+    url = "https://schedge.a1liu.com/" + str(year) + "/"+ semester + "/search?query='" + subject + "'&limit=9999&full=true"
+    return get_data(url)
 
-    url = "https://schedge.a1liu.com/" + str(year) + "/fa/search?query='" + subject + "'&limit=9999"
+def get_section(semester, registrationNumber, year):
+    validate_sem_and_year(semester, year)
+
+    if not isinstance(registrationNumber, int):
+        raise TypeError("Registration Number must be of type int")
+    
+    url = "https://schedge.a1liu.com/" + str(year) + "/" + semester + "/" + str(registrationNumber)
     return get_data(url)
