@@ -1,4 +1,6 @@
 #linkedlist used to efficiently represent each date
+#Use to detect overlap in O(n).
+#Another possible implementation would be to use a bunch of bits, which would detect overlap in O(1) by doing & operation
 class LinkedList:
     class Node:
         def __init__(self,start,end,name = None):

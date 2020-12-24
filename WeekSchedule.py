@@ -1,5 +1,6 @@
 from Day import Day
 from Classes import Classes
+#This class represents a 5-day schedule (basically a class that contains 5 instances of Day as well as all the methods)
 class WeekSchedule:
     def __init__(self):
         self.week = []

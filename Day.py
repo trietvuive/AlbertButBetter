@@ -1,6 +1,6 @@
 from Classes import *
 from LinkedList import *
-#object represents each day of the week
+#This class represents each day of the week. Basically a wrapper for LinkedList
 class Day:
     def __init__(self):
         self.day_interval = LinkedList()
