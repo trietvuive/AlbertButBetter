@@ -1,5 +1,7 @@
 from AlbertCourse import *
 from WeekSchedule import *
+import os
+import API_Request
 class Scheduling:
     def __init__(self,all_courses):
         self.all_classes = []
@@ -25,7 +27,12 @@ class Scheduling:
 
 
 def main():
-
+    all_subjects = API_Request.get_subjects()
+    all_schools = [key for key in all_subjects.keys()]
+    all_courses = {school:all_subjects[school] for school in all_schools}
+    for entry in all_courses:
+        print(entry,all_courses[entry])
+    print()
     cs2124 = AlbertCourse("CS 2314")
     cs2124.add_lecture([(0,9.50,10.83),(2,9.50,10.83)])
     cs2124.add_lecture([(0,11,12.33),(2,11,12.33)])
@@ -59,15 +66,18 @@ def main():
     while True:
         print(sched.all_arrangements[i])
         while True:
-            string = input("D to see next schedule, A to see previous schedule, X to exit\n")
+            string = input("D to see next schedule, A to see previous schedule, your mom hahaha to exit\n")
             if string.lower() == "d":
                 if i+1 < n:
+                    os.system('cls')
                     i+=1
                     break
             if string.lower() == "a":
                 if i-1>-1:
+                    os.system('cls')
                     i-=1
                     break
-            if string.lower() == "x":
+            if string.lower() == "your mom hahaha":
+                os.system('cls')
                 return
 main()
