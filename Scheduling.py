@@ -10,6 +10,7 @@ class Scheduling:
             self.all_classes.append(i.lab_options)
             self.all_classes.append(i.reci_options)
             self.all_classes.append(i.lecture_options)
+
     def backtracking(self):
         def backtracking_helper(self,assignment,i):
             #print(str(i)+ " "+str(assignment))

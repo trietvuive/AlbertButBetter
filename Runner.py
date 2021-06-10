@@ -40,21 +40,23 @@ def main():
     n = len(sched.all_arrangements)
     if n == 0:
         print("Uh oh, your schedule seems impossible. Try adding more options or sth m8")
-    while True:
-        print(sched.all_arrangements[i])
+    else:
         while True:
-            string = input("D to see next schedule, A to see previous schedule, your mom hahaha to exit\n")
-            if string.lower() == "d":
-                if i+1 < n:
+            print("There are a total of %s arrangements. This is arrangement #%s" % (n,i+1))
+            print(sched.all_arrangements[i])
+            while True:
+                string = input("D to see next schedule, A to see previous schedule, your mom hahaha to exit\n")
+                if string.lower() == "d":
                     os.system('cls')
-                    i+=1
+                    if i+1 < n:
+                        i+=1
                     break
-            if string.lower() == "a":
-                if i-1>-1:
+                if string.lower() == "a":
                     os.system('cls')
-                    i-=1
+                    if i-1>-1:
+                        i-=1
                     break
-            if string.lower() == "your mom hahaha":
-                os.system('cls')
-                return
+                if string.lower() == "your mom hahaha":
+                    os.system('cls')
+                    return
 main()
