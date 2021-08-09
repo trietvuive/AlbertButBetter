@@ -18,9 +18,14 @@ def print_format_json(json_data): #For testing and debugging purposes only
 
 def get_schools():
     return get_data("https://schedge.a1liu.com/schools")
+def get_school_list():
+    return [school for school in get_schools().keys()]
 
 def get_subjects():
     return get_data("https://schedge.a1liu.com/subjects")
+def get_subject_list_by_school(school):
+    return [subject for subject in get_subjects()[school].keys()]
+
 
 def validate_sem_and_year(semester, year):
     valid_sem = ["su", "sp", "fa", "ja"]
@@ -41,10 +46,8 @@ def validate_subject(subject):
     
     for school in get_schools():
         school_subjects = subjects.get(school)
-        
         if school_subjects is not None and subject in school_subjects:
-            valid = True
-            break
+            return
 
     if not valid:
         raise ValueError("Invalid Subject")
