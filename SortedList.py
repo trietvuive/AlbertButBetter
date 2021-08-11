@@ -29,10 +29,3 @@ class SortedList:
 
     def __str__(self):
         return str.join(", ",[str(i[2])+ ": "+i[0].strftime("%H:%M:%S")+" -> "+i[1].strftime("%H:%M:%S") for i in self])
-
-
-start = datetime.datetime.strptime("2020-05-26 09:30:00", '%Y-%m-%d %X')
-end = start + datetime.timedelta(minutes = 150)
-print(start.time())
-list = SortedList()
-print(list.insert(start,end,"LUL"))

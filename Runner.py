@@ -11,11 +11,13 @@ import datetime
 #
 
 def main():
-    convert_time("2020-05-26 09:30:00",225)
-    #school = prompt_school()
-    #subject = prompt_subject(school)
+    school = prompt_school()
+    subject = prompt_subject(school)
+    json_data = filter_json_data_by_code(school, subject, "1134")
+    API_Request.print_format_json(json_data)
+    lab_sections = get_section_from_json(json_data, "Lab")
+    print(lab_sections)
     sample_test()
-    time_string = "2020-05-26 09:30:00"
 def prompt_school():
     all_schools = API_Request.get_school_list()
     return prompt_template(all_schools,"Pick a school: ","Bruhh")
@@ -23,6 +25,24 @@ def prompt_school():
 def prompt_subject(school):
     all_subjects = API_Request.get_subject_list_by_school(school)
     return prompt_template(all_subjects, "Pick a subject: ", "Bruh")
+
+
+def filter_json_data_by_code(school, subject, code, sem = "fa"):
+    all_subjects = API_Request.get_courses(sem,school,subject)
+    for i in all_subjects:
+        if i["deptCourseId"] == code:
+            return i
+
+def get_section_from_json(json_data, section_type):
+    all_sections = []
+    for i in json_data["sections"]:
+        if i["type"] == section_type:
+            section_meetings = []
+            if i["meetings"]:
+                for meeting in i["meetings"]:
+                    section_meetings.append(create_slot(meeting["beginDate"],meeting["minutesDuration"]))
+            all_sections.append(section_meetings)
+    return all_sections
 
 def prompt_template(list,prompt,reject_response):
     reply = ""

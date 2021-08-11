@@ -28,7 +28,7 @@ def get_subject_list_by_school(school):
 
 
 def validate_sem_and_year(semester, year):
-    valid_sem = ["su", "sp", "fa", "ja"]
+    valid_sem = ["su", "sp", "fa", "ja","current"]
     
     if semester not in valid_sem:
         raise ValueError("Invalid Semester")
@@ -56,7 +56,6 @@ def validate_subject(subject):
 
 def get_courses(semester, school, subject, year = "current"):
     validate_sem_and_year(semester, year)
-
     url = "https://schedge.a1liu.com/" + str(year) + "/" + semester + "/" + school + "/" + subject
     return get_data(url)
 
